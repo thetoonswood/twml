@@ -178,7 +178,7 @@ def scrapper(update, context):
              final_url = f"{DOMAIN}/{code}"
              ref = "https://mytop5.club/"
              h = {"referer": ref}
-             resp = client.get(final_url, headers=h)
+             resp = rget(final_url, headers=h)
              soup = BeautifulSoup(resp.content, "html.parser")
              inputs = soup.find_all("input")
              data = { input.get('name'): input.get('value') for input in inputs }
