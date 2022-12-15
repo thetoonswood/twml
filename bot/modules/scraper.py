@@ -170,6 +170,7 @@ def scrapper(update, context):
          gd_txt = f"Total Links Found : {len(links)}\n\n"
          editMessage(gd_txt, sent)
          for a in links:
+             client = requests.session()
              download = get(a['href'], stream=True, allow_redirects=False)
              url = download.headers["location"]
              DOMAIN = "https://technemo.xyz/blog"
@@ -178,7 +179,7 @@ def scrapper(update, context):
              final_url = f"{DOMAIN}/{code}"
              ref = "https://mytop5.club/"
              h = {"referer": ref}
-             resp = rget(final_url, headers=h)
+             resp = client.get(final_url, headers=h)
              soup = BeautifulSoup(resp.content, "html.parser")
              inputs = soup.find_all("input")
              data = { input.get('name'): input.get('value') for input in inputs }
